@@ -2,12 +2,17 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public event Action OnRewindStarted;
+    public static CharacterMovement Instance;
 
+    public event Action OnRewindStarted;
+    public UnityEvent onPlayerDamaged;
+
+    public int lifeCount = 3;
     public float moveSpeed = 5f; // Speed of the player
     public GameObject projectilePrefab; // Projectile prefab to instantiate
     private GameObject currentProjectile;
@@ -15,6 +20,18 @@ public class CharacterMovement : MonoBehaviour
     private Rigidbody2D rb; // Reference to the Rigidbody2D component
     private Vector2 movement; // Store movement input
     private Vector2 pointerPos;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+           Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -64,5 +81,10 @@ public class CharacterMovement : MonoBehaviour
     public Vector2 GetCursorPosition()
     {
         return pointerPos;
+    }
+
+    public void PlayerDamagedActions()
+    {
+        lifeCount--;
     }
 }
