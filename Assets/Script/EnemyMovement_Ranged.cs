@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyMovement_01 : EnemyMovement
+public class EnemyMovement_Ranged : EnemyMovement
 {
     private void FixedUpdate()
     {

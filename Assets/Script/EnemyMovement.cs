@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -25,7 +26,20 @@ public class EnemyMovement : MonoBehaviour
 
     public bool canSeePlayer;
 
-    private void Start()
+    private void OnValidate()
+    {
+        if (enemySO != null)
+        {
+            radius = enemySO.Enemy.ReactLength;
+            angle = enemySO.Enemy.ReactAngle;
+            speed = enemySO.Enemy.MovementSpeed;
+            attackRange = enemySO.Enemy.AttackRange;
+            attackFrequency = enemySO.Enemy.AttackFrequency;
+            armor = enemySO.Enemy.Armor;
+        }
+    }
+
+    public virtual void Start()
     {
         if(enemySO!= null)
         {
@@ -90,8 +104,9 @@ public class EnemyMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
+        print(collision.name);
         if (collision.CompareTag("CharacterProjectile"))
         {
             Destroy(gameObject);

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b55db9829ea090149a2c744aa792043b, type: 3}
-  m_Name: Enemy01
+  m_Name: Enemy_Shield
   m_EditorClassIdentifier: 
   Enemy:
-    Name: Enemy01
+    Name: EnemyShield
     ReactLength: 7
     ReactAngle: 75
-    MovementSpeed: 3
-    AttackRange: 10
-    AttackFrequency: 5
-    Armor: 1
+    MovementSpeed: 1.5
+    AttackRange: 3
+    AttackFrequency: 3
+    Armor: 3

@@ -12,6 +12,10 @@ public class FieldOfView2DEditor : Editor
         // Draw the wire arc for the field of view
         Handles.DrawWireArc(new Vector3(fov.transform.position.x, fov.transform.position.y, 0), Vector3.forward, Vector3.up, 360, fov.radius);
 
+        // Draw the wire arc for the attack range
+        Handles.color = Color.red;
+        Handles.DrawWireArc(new Vector3(fov.transform.position.x, fov.transform.position.y, 0), Vector3.forward, Vector3.up, 360, fov.attackRange);
+
         // Calculate the view angles based on the Z rotation
         Vector2 viewAngle01 = DirectionFromAngle(fov.transform.eulerAngles.z, -fov.angle / 2);
         Vector2 viewAngle02 = DirectionFromAngle(fov.transform.eulerAngles.z, fov.angle / 2);

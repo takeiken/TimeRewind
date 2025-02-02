@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - CharacterProjectile
+  - EnemyAttackHitbox
   layers:
   - Default
   - TransparentFX
