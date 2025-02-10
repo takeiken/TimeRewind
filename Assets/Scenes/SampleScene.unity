@@ -777,17 +777,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1463522198 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-  m_PrefabInstance: {fileID: 1773747934}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08290b8494dd7a549bff2b37e20142f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1463522202 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3572788763108711818, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
@@ -1122,26 +1111,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1463522198}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
       propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1724484068}
@@ -1149,61 +1118,9 @@ PrefabInstance:
       propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 519420033}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlayerDamagedActions
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: UpdatePlayerLife
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: ShakeCamera
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: CharacterMovement, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: PlayerStatsUI, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: CameraSmoothFollow, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4354160584674229728, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 7168372492256287208, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
       propertyPath: m_Name
       value: CharacterPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 7168372492256287208, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

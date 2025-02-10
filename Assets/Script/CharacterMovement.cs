@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,17 +10,38 @@ public class CharacterMovement : MonoBehaviour
 {
     public static CharacterMovement Instance;
 
+    public IdleState idleState;
+    public RunState runState;
+    public AttackState attackState;
+    public RewindState rewindState;
+    [SerializeField]
+    State state;
+
+    public Animator animator;
+
+    [HideInInspector]
+    public bool isAttacking;
+    [HideInInspector]
+    public bool attackTriggered;
+    bool isRewinding;
+
     public event Action OnRewindStarted;
     public UnityEvent onPlayerDamaged;
 
     public int lifeCount = 3;
     public float moveSpeed = 5f; // Speed of the player
+    public float attackcooldown = 0.05f;
     public GameObject projectilePrefab; // Projectile prefab to instantiate
-    private GameObject currentProjectile;
+    [HideInInspector]
+    public GameObject currentProjectile;
 
     private Rigidbody2D rb; // Reference to the Rigidbody2D component
-    private Vector2 movement; // Store movement input
+    [HideInInspector]
+    public Vector2 movement; // Store movement input
     private Vector2 pointerPos;
+
+    public SpriteRenderer sprite;
+
 
     private void Awake()
     {
@@ -36,46 +58,80 @@ public class CharacterMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponentInChildren<Rigidbody2D>();
-            //GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
+        idleState.Setup(rb, animator, this);
+        runState.Setup(rb, animator, this);
+        attackState.Setup(rb, animator, this);
+        rewindState.Setup(rb, animator, this);
+        state = idleState;
     }
 
     void Update()
     {
-        // Get input from the W, A, S, D keys
-        movement.x = Input.GetAxisRaw("Horizontal"); // A/D keys or Left/Right arrow keys
-        movement.y = Input.GetAxisRaw("Vertical"); // W/S keys or Up/Down arrow keys
-        pointerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        GetInput();
 
-        if (Input.GetMouseButtonDown(0) && currentProjectile == null)
+        if (state.isCompleted)
         {
-            Shoot();
+            SelectState();
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && !currentProjectile.IsDestroyed())
-        {
-            OnRewindStarted?.Invoke();
-        }
+        state.Do();
+        attackTriggered = false;
+        //UpdateState();
     }
 
     void FixedUpdate()
     {
+        if (!state.Equals(runState)) return;
         // Move the player using the Rigidbody2D component
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
-    private void Shoot()
+    void GetInput()
     {
-        // Create a projectile instance
-        currentProjectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        // Get input from the W, A, S, D keys
+        //movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+        pointerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // Calculate direction to the cursor
-        Vector2 direction = (GetCursorPosition() - rb.position).normalized;
+        if (Input.GetMouseButtonDown(0) && !isAttacking)
+        {
+            attackTriggered = true;
+        }
 
-        // Set the projectile's rotation to face the cursor
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        currentProjectile.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        if (Input.GetKeyDown(KeyCode.Space) && isAttacking)
+        {
+            isRewinding = true;
+        }
+        
+        if (currentProjectile.IsDestroyed())
+        {
+            isRewinding = false;
+        }
+    }
 
-        currentProjectile.GetComponent<SimpleProjectile>().SetCharacter(this);
+    void SelectState()
+    {
+        //Player cannot move when rewinding or attacking
+        if (isRewinding)
+        {
+            state = rewindState;
+        }
+        else if (attackTriggered || isAttacking)   
+        {
+            state = attackState;
+        }
+        else if ((Mathf.Abs(movement.x) + Mathf.Abs(movement.y)) > 0f)
+        {
+            state = runState;
+        }
+        else
+        {
+            state = idleState;
+        }
+
+        state.Initialize();
+        state.Enter();
     }
 
     public Vector2 GetCursorPosition()
@@ -86,5 +142,10 @@ public class CharacterMovement : MonoBehaviour
     public void PlayerDamagedActions()
     {
         lifeCount--;
+    }
+
+    public void StartRewindActions()
+    {
+        OnRewindStarted?.Invoke();
     }
 }
