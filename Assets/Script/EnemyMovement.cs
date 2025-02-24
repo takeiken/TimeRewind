@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class EnemyMovement : MonoBehaviour
     public float armor;
 
     public bool canAttack = true;
+
+    public EnemyHitBox[] hitboxes;
 
     [HideInInspector]
     public GameObject playerRef;
@@ -53,6 +56,7 @@ public class EnemyMovement : MonoBehaviour
         playerRef = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(FOVRoutine());
+        InitializeHitboxes();
     }
 
     
@@ -104,9 +108,18 @@ public class EnemyMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
+    private void InitializeHitboxes()
+    {
+        hitboxes = transform.GetComponentsInChildren<EnemyHitBox>();
+        foreach (EnemyHitBox hitbox in hitboxes)
+        {
+            hitbox.Setup(this);
+        }
+    }
+
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        print(collision.name);
+        //print("Trigger Entered: " + gameObject.name + " ||||| Trigger Tag: " + tag);
         if (collision.CompareTag("CharacterProjectile"))
         {
             Destroy(gameObject);

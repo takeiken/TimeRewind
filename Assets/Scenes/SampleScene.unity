@@ -641,6 +641,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1352516987026199485, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
+      propertyPath: enemyProjectile
+      value: 
+      objectReference: {fileID: 9206955176409051866, guid: 48a0140e11b577d4ba97c9cdda1b0590, type: 3}
     - target: {fileID: 3790227910516940164, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
       propertyPath: m_Name
       value: Enemy01 (3)
@@ -684,6 +688,18 @@ PrefabInstance:
     - target: {fileID: 4935736832384465500, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 95.016
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049630946706126589, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049630946706126589, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049630946706126589, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
+      propertyPath: m_Color.r
+      value: 0.07456994
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1118,9 +1134,21 @@ PrefabInstance:
       propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 519420033}
+    - target: {fileID: 4667395477510402932, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4667395477510402932, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4667395477510402932, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7168372492256287208, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
       propertyPath: m_Name
-      value: CharacterPrefab
+      value: CharacterPrefab_Soul
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1277,6 +1305,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1352516987026199485, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
+      propertyPath: enemyProjectile
+      value: 
+      objectReference: {fileID: 9206955176409051866, guid: d38115338bf572041b4eb2736a640863, type: 3}
     - target: {fileID: 3790227910516940164, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
       propertyPath: m_Name
       value: Enemy01 (2)
@@ -1320,6 +1352,18 @@ PrefabInstance:
     - target: {fileID: 4935736832384465500, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 95.016
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049630946706126589, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049630946706126589, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
+      propertyPath: m_Color.g
+      value: 0.04240513
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049630946706126589, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -9,6 +9,7 @@ public class AttackState : State
     public override void Enter()
     {
         animator.Play(anim.name);
+        movementInput.sprite.color = Color.white;
     }
 
     public override void Do()

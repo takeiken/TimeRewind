@@ -14,6 +14,6 @@ public class PlayerStatsUI : MonoBehaviour
 
     public void UpdatePlayerLife()
     {
-        lifeText.text = "Life: " + character.lifeCount.ToString();
+        lifeText.text = "Life: " + character.puppetLifeCount.ToString();
     }
 }

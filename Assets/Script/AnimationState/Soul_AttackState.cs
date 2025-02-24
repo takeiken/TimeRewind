@@ -1,18 +1,17 @@
 using UnityEngine;
-using UnityEngine.U2D;
 
-public class RewindState : State
+public class Soul_AttackState : State
 {
     public AnimationClip anim;
     public override void Enter()
     {
         animator.Play(anim.name);
-        movementInput.sprite.color = Color.white;
+        movementInput.sprite.color = Color.blue;
     }
 
     public override void Do()
     {
-        movementInput.StartRewindActions();
+
         isCompleted = true;
     }
 

@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1575840987001765847}
   - component: {fileID: 3797880799712350311}
-  m_Layer: 8
+  - component: {fileID: 4837273643981390808}
+  m_Layer: 10
   m_Name: AttackHitbox
   m_TagString: EnemyAttackHitbox
   m_Icon: {fileID: 0}
@@ -78,6 +79,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &4837273643981390808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912991594163784183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12ddb7f41a3a6bf4484dbc9cb0bef128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7655249813552615814
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +119,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7655249813552615814}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.7373713, w: 0.6754877}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7373716, w: 0.6754873}
   m_LocalPosition: {x: -12.33, y: -11.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -159,7 +172,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.65882355, g: 0, b: 0.055776667, a: 1}
+  m_Color: {r: 0.65882355, g: 0.49225083, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -262,6 +275,7 @@ MonoBehaviour:
   attackFrequency: 3
   armor: 3
   canAttack: 1
+  hitboxes: []
   playerRef: {fileID: 0}
   enemyProjectile: {fileID: 0}
   rb: {fileID: 0}

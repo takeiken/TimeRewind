@@ -6,6 +6,8 @@ TagManager:
   tags:
   - CharacterProjectile
   - EnemyAttackHitbox
+  - PhysicalPlayer
+  - SoulPlayer
   layers:
   - Default
   - TransparentFX
@@ -17,9 +19,9 @@ TagManager:
   - CharacterProjectile
   - Enemy
   - Obstacle
-  - EnemyProjectile
-  - 
-  - 
+  - EnemyPhyscialAttack
+  - EnemySoulAttack
+  - EnemyMixedAttack
   - 
   - 
   - 
