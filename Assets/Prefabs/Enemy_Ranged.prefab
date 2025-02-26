@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1352516987026199485}
   m_Layer: 8
   m_Name: Enemy_Ranged
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,7 +106,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -183,6 +183,8 @@ MonoBehaviour:
   attackFrequency: 5
   armor: 1
   canAttack: 1
+  hitboxes: []
+  bodyType: 0
   playerRef: {fileID: 0}
   enemyProjectile: {fileID: 9206955176409051866, guid: 91bf72ab8547ba54189a792972f0186e, type: 3}
   rb: {fileID: 0}

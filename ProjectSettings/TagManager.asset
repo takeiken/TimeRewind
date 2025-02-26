@@ -8,6 +8,8 @@ TagManager:
   - EnemyAttackHitbox
   - PhysicalPlayer
   - SoulPlayer
+  - PlayerHitbox
+  - Enemy
   layers:
   - Default
   - TransparentFX

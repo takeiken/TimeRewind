@@ -27,6 +27,8 @@ public class EnemyHitBox : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!(collision.gameObject.CompareTag("SoulPlayer") || collision.gameObject.CompareTag("PhysicalPlayer"))) return;
+        
         if ((CharacterMovement.Instance.currentBodyType == CharacterBodyType.BodyType.Soul && (attackType == AttackType.EnemyAttackType.Soul || attackType == AttackType.EnemyAttackType.Both)) ||
         (CharacterMovement.Instance.currentBodyType == CharacterBodyType.BodyType.Physical && (attackType == AttackType.EnemyAttackType.Physical || attackType == AttackType.EnemyAttackType.Both)))
         {

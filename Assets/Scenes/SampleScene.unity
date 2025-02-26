@@ -1134,18 +1134,6 @@ PrefabInstance:
       propertyPath: onPlayerDamaged.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 519420033}
-    - target: {fileID: 4667395477510402932, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4667395477510402932, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4667395477510402932, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7168372492256287208, guid: c5791c6483ab9c040a3439da0dbf104a, type: 3}
       propertyPath: m_Name
       value: CharacterPrefab_Soul
@@ -1166,6 +1154,10 @@ PrefabInstance:
     - target: {fileID: 3790227910516940164, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
       propertyPath: m_Name
       value: Enemy01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700121754697890100, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4935736832384465500, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1305,6 +1297,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1352516987026199485, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
+      propertyPath: enemySO
+      value: 
+      objectReference: {fileID: 11400000, guid: 502b6bd3a1c1e62409f06841a215b36d, type: 2}
+    - target: {fileID: 1352516987026199485, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
+      propertyPath: bodyType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1352516987026199485, guid: 2f03a9389a496af42a63604f36dcec48, type: 3}
       propertyPath: enemyProjectile
       value: 

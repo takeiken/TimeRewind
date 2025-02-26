@@ -17,6 +17,7 @@ public class EnemyMovement : MonoBehaviour
     public bool canAttack = true;
 
     public EnemyHitBox[] hitboxes;
+    public CharacterBodyType.BodyType bodyType;
 
     [HideInInspector]
     public GameObject playerRef;
@@ -39,6 +40,7 @@ public class EnemyMovement : MonoBehaviour
             attackRange = enemySO.Enemy.AttackRange;
             attackFrequency = enemySO.Enemy.AttackFrequency;
             armor = enemySO.Enemy.Armor;
+            bodyType = enemySO.Enemy.BodyType;
         }
     }
 
@@ -52,6 +54,7 @@ public class EnemyMovement : MonoBehaviour
             attackRange = enemySO.Enemy.AttackRange;
             attackFrequency = enemySO.Enemy.AttackFrequency;
             armor = enemySO.Enemy.Armor;
+            bodyType = enemySO.Enemy.BodyType;
         }
         playerRef = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody2D>();

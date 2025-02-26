@@ -25,7 +25,6 @@ public class Soul_RunState : State
         if (CharacterPuppet.Instance == null) return;
 
         float dis = Vector3.Distance(CharacterPuppet.Instance.transform.position, movementInput.transform.position);
-        print (dis);
         if (dis >= 20)
         {
             movementInput.ForceReturnPuupet();

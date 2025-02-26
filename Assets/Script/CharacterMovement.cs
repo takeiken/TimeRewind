@@ -5,6 +5,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using static UnityEngine.Rendering.DebugUI;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -39,6 +41,10 @@ public class CharacterMovement : MonoBehaviour
     public int puppetLifeCount = 3;
     public float moveSpeed = 5f; // Speed of the player
     public float attackcooldown = 0.05f;
+    public float facingRotation = 0f;
+    public float inputDeadZone = 0.05f;
+    public GameObject hitboxParent;
+    public CharacterHitbox characterHitbox;
     public GameObject projectilePrefab; // Projectile prefab to instantiate
     public GameObject puppetPrefab;
     [HideInInspector]
@@ -60,7 +66,7 @@ public class CharacterMovement : MonoBehaviour
         }
         else
         {
-           Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 
@@ -75,7 +81,9 @@ public class CharacterMovement : MonoBehaviour
         soulIdleState.Setup(rb, animator, this);
         soulRunState.Setup(rb, animator, this);
         state = idleState;
+        characterHitbox.SetupHitbox(this);
         SwitchPlayerTag();
+
     }
 
     void Update()
@@ -105,14 +113,25 @@ public class CharacterMovement : MonoBehaviour
         //movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        //print(Gamepad.current[GamepadButton.LeftStick]);
+
+        if (Mathf.Abs(movement.x) < inputDeadZone) movement.x = 0f;
+        if (Mathf.Abs(movement.y) < inputDeadZone) movement.y = 0f;
+
+        if (movement != Vector2.zero)
+        {
+            facingRotation = Vector2ToRotation(movement);
+            hitboxParent.transform.rotation = Quaternion.Euler(0f, 0f, facingRotation);
+        }
+
         pointerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        /*if (Input.GetMouseButtonDown(0) && !isAttacking)
+        if (Input.GetMouseButtonDown(0) && !isAttacking)
         {
             attackTriggered = true;
-        }*/
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && !isAttacking)
         {
             switchBodyTriggered = true;
         }
@@ -122,10 +141,10 @@ public class CharacterMovement : MonoBehaviour
             isRewinding = true;
         }*/
 
-        if (currentProjectile.IsDestroyed())
+        /*if (currentProjectile.IsDestroyed())
         {
             isRewinding = false;
-        }
+        }*/
     }
 
     void SelectState()
@@ -135,10 +154,7 @@ public class CharacterMovement : MonoBehaviour
         {
             state = rewindState;
         }
-        else if (attackTriggered || isAttacking)   
-        {
-            state = attackState;
-        }
+        
         else */
 
         if (switchBodyTriggered)
@@ -150,6 +166,17 @@ public class CharacterMovement : MonoBehaviour
             else //switch to puppet
             {
                 state = idleState;
+            }
+        }
+        else if (attackTriggered || isAttacking)
+        {
+            if (currentBodyType == CharacterBodyType.BodyType.Physical) //attack as puppet
+            {
+                state = attackState;
+            }
+            else //attack as soul
+            {
+                state = soulAttackState;
             }
         }
         else if ((Mathf.Abs(movement.x) + Mathf.Abs(movement.y)) > 0f)
@@ -208,5 +235,16 @@ public class CharacterMovement : MonoBehaviour
     {
         print(currentBodyType.ToString());
         gameObject.tag = currentBodyType.ToString() + "Player";
+    }
+
+    float Vector2ToRotation(Vector2 direction)
+    {
+        // Normalize the vector
+        direction.Normalize();
+
+        // Calculate the angle in degrees
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        return angle;
     }
 }

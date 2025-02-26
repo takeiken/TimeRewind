@@ -17,9 +17,25 @@ public class AttackState : State
         if (movementInput.attackTriggered)
         {
             movementInput.attackTriggered = false;
-            Shoot();
+            //Shoot();
+            MeleeAttack();
         }
         isCompleted = true;
+    }
+
+    public void MeleeAttack()
+    {
+        if (movementInput.isAttacking) return;
+        movementInput.isAttacking = true;
+        movementInput.characterHitbox.EnableHitbox(true);
+        StartCoroutine(AttackCooldown());
+    }
+
+    IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(0.1f);
+        movementInput.isAttacking = false;
+        movementInput.characterHitbox.EnableHitbox(false);
     }
 
     public void Shoot()

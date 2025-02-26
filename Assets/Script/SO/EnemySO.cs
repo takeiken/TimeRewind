@@ -10,6 +10,8 @@ public class Enemy
     public float AttackRange;
     public float AttackFrequency;
     public float Armor;
+    [SerializeField]
+    public CharacterBodyType.BodyType BodyType;
 }
 
 [CreateAssetMenu(fileName = "EnemySO", menuName = "Scriptable Objects/EnemySO")]
