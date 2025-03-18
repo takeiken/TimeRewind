@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Soul_IdleState : State
+public class Soul_IdleState : PlayerState
 {
     public AnimationClip anim;
     public override void Enter()

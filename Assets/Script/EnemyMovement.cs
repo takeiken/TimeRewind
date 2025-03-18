@@ -1,11 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
     public EnemySO enemySO;
+
+    [Header("State")]
+    public Enemy_IdleState idleState;
+    public Enemy_FollowState followState;
+    public Enemy_AttackState attackState;
+    [SerializeField]
+    EnemyState state;
+
+    [Header("Parameters")]
     public float radius;
     [Range(0, 360)]
     public float angle;
@@ -28,6 +38,7 @@ public class EnemyMovement : MonoBehaviour
     public LayerMask targetMask;
     public LayerMask obstructionMask;
 
+    public bool triggeredByPlayer;
     public bool canSeePlayer;
 
     private void OnValidate()
@@ -56,13 +67,35 @@ public class EnemyMovement : MonoBehaviour
             armor = enemySO.Enemy.Armor;
             bodyType = enemySO.Enemy.BodyType;
         }
+        if (idleState != null) idleState.Setup(rb, this);
+        if (followState != null) followState.Setup(rb, this);
+        if (attackState != null) attackState.Setup(rb, this);
+        state = idleState;
         playerRef = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(FOVRoutine());
         InitializeHitboxes();
     }
 
-    
+    private void Update()
+    {
+        if (state == null) return;
+
+        if (state.isCompleted)
+        {
+            SelectState();
+        }
+
+        state.Do();
+    }
+
+    void SelectState()
+    {
+        if (triggeredByPlayer)
+        {
+            state = followState;
+        }
+    }
 
     private IEnumerator FOVRoutine()
     {
@@ -103,6 +136,7 @@ public class EnemyMovement : MonoBehaviour
     private void FacePlayer()
     {
         canSeePlayer = true;
+        triggeredByPlayer = true;
         // Calculate direction to the player
         Vector2 direction = ((Vector2)CharacterMovement.Instance.transform.position - rb.position).normalized;
 

@@ -1,18 +1,17 @@
 using UnityEngine;
-using UnityEngine.U2D;
 
-public class RewindState : State
+public class Enemy_IdleState : EnemyState
 {
     public AnimationClip anim;
     public override void Enter()
     {
+        if (anim == null || animator == null) return;
         animator.Play(anim.name);
-        movementInput.sprite.color = Color.white;
     }
 
     public override void Do()
     {
-        movementInput.StartRewindActions();
+
         isCompleted = true;
     }
 

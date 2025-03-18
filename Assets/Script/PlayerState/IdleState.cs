@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.U2D;
 
-public class IdleState : State
+public class IdleState : PlayerState
 {
     public AnimationClip anim;
     public override void Enter()

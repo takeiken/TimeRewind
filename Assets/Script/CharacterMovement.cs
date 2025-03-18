@@ -16,30 +16,42 @@ public class CharacterMovement : MonoBehaviour
     public IdleState idleState;
     public RunState runState;
     public AttackState attackState;
-    public RewindState rewindState;
+    public DashState dashState;
+    //public RewindState rewindState;
 
     [Header("SoulMode")]
     public Soul_AttackState soulAttackState;
     public Soul_IdleState soulIdleState;
     public Soul_RunState soulRunState;
+    public Soul_DashState soulDashState;
     [SerializeField]
-    State state;
+    PlayerState state;
 
     public Animator animator;
 
+    public bool ableToAttack = true;
     [HideInInspector]
     public bool isAttacking;
+    public float attackCooldown = 0.5f;
+    public bool ableToDash = true;
+    [HideInInspector]
+    public bool isDashing;
+    public float dashCooldown = 2f;
     [HideInInspector]
     public bool attackTriggered;
+    public bool dashTriggered;
     public bool switchBodyTriggered;
     bool isRewinding;
     public CharacterBodyType.BodyType currentBodyType;
+    public float maxSeperateDistance = 20f;
 
     public event Action OnRewindStarted;
     public UnityEvent onPlayerDamaged;
 
     public int puppetLifeCount = 3;
     public float moveSpeed = 5f; // Speed of the player
+    public float dashDistance = 5f;
+    public float dashDuration = 0.4f;
     public float attackcooldown = 0.05f;
     public float facingRotation = 0f;
     public float inputDeadZone = 0.05f;
@@ -50,9 +62,10 @@ public class CharacterMovement : MonoBehaviour
     [HideInInspector]
     public GameObject currentProjectile;
 
-    private Rigidbody2D rb; // Reference to the Rigidbody2D component
+    public Rigidbody2D rb; // Reference to the Rigidbody2D component
     [HideInInspector]
     public Vector2 movement; // Store movement input
+    public Vector2 lastMovement; //Store latest movement input
     private Vector2 pointerPos;
 
     public SpriteRenderer sprite;
@@ -76,10 +89,12 @@ public class CharacterMovement : MonoBehaviour
         idleState.Setup(rb, animator, this);
         runState.Setup(rb, animator, this);
         attackState.Setup(rb, animator, this);
-        rewindState.Setup(rb, animator, this);
+        dashState.Setup(rb, animator, this);
+        //rewindState.Setup(rb, animator, this);
         soulAttackState.Setup(rb, animator, this);
         soulIdleState.Setup(rb, animator, this);
         soulRunState.Setup(rb, animator, this);
+        soulDashState.Setup(rb, animator, this);
         state = idleState;
         characterHitbox.SetupHitbox(this);
         SwitchPlayerTag();
@@ -96,8 +111,6 @@ public class CharacterMovement : MonoBehaviour
         }
 
         state.Do();
-        attackTriggered = false;
-        //UpdateState();
     }
 
     void FixedUpdate()
@@ -121,30 +134,26 @@ public class CharacterMovement : MonoBehaviour
 
         if (movement != Vector2.zero)
         {
+            lastMovement = movement;
             facingRotation = Vector2ToRotation(movement);
             hitboxParent.transform.rotation = Quaternion.Euler(0f, 0f, facingRotation);
         }
 
         pointerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (Input.GetMouseButtonDown(0) && !isAttacking)
+        if (isDashing || isAttacking) return;
+        if (Input.GetMouseButtonDown(1) && ableToDash)
+        {
+            dashTriggered = true;
+        }
+        else if (Input.GetMouseButtonDown(0) && ableToAttack)
         {
             attackTriggered = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && !isAttacking)
+        else if (Input.GetKeyDown(KeyCode.Space))
         {
             switchBodyTriggered = true;
         }
-
-        /*if (Input.GetKeyDown(KeyCode.Space) && isAttacking)
-        {
-            isRewinding = true;
-        }*/
-
-        /*if (currentProjectile.IsDestroyed())
-        {
-            isRewinding = false;
-        }*/
     }
 
     void SelectState()
@@ -157,7 +166,18 @@ public class CharacterMovement : MonoBehaviour
         
         else */
 
-        if (switchBodyTriggered)
+        if (dashTriggered || isDashing)
+        {
+            if (currentBodyType == CharacterBodyType.BodyType.Physical) //dash as puppet
+            {
+                state = dashState;
+            }
+            else //dash as soul
+            {
+                state = soulDashState;
+            }
+        }
+        else if (switchBodyTriggered)
         {
             if (currentBodyType == CharacterBodyType.BodyType.Physical) //switch to soul
             {

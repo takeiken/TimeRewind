@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class State : MonoBehaviour
+public abstract class PlayerState : MonoBehaviour
 {
     public bool isCompleted { get; protected set; }
     protected float startTime;

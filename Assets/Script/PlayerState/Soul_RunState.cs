@@ -1,13 +1,12 @@
 using UnityEngine;
-using UnityEngine.U2D;
 
-public class RunState : State
+public class Soul_RunState : PlayerState
 {
     public AnimationClip anim;
     public override void Enter()
     {
         animator.Play(anim.name);
-        movementInput.sprite.color = Color.white;
+        movementInput.sprite.color = Color.blue;
     }
 
     public override void Do()
@@ -19,14 +18,21 @@ public class RunState : State
             movementInput.sprite.flipX = movementInput.movement.x < 0f;
         }
         isCompleted = true;
-        /*if ((Mathf.Abs(movementInput.movement.x) + Mathf.Abs(movementInput.movement.y)) <= 0f)
-        {
-            isCompleted = true;
-        }*/
     }
 
-    public override void Exit() 
-    { 
+    private void Update()
+    {
+        if (CharacterPuppet.Instance == null) return;
+
+        float dis = Vector3.Distance(CharacterPuppet.Instance.transform.position, movementInput.transform.position);
+        if (dis >= movementInput.maxSeperateDistance)
+        {
+            movementInput.ForceReturnPuupet();
+        }
+    }
+
+    public override void Exit()
+    {
 
     }
 }

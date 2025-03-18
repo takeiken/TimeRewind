@@ -139,6 +139,8 @@ GameObject:
   - component: {fileID: 5333005719380574726}
   - component: {fileID: 800357913357547679}
   - component: {fileID: 4730870890379332162}
+  - component: {fileID: 8304012402686302619}
+  - component: {fileID: 2700393039108094870}
   m_Layer: 6
   m_Name: AnimationState
   m_TagString: Untagged
@@ -249,6 +251,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ded94deeb6acbb04c91f18340802bcf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 5522812681064789136, guid: 141bceac122bd314aba12efff2e63a8b, type: 3}
+--- !u!114 &8304012402686302619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116118446003420813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1337c7e8b6e14c346a4c1b9e1dc3698e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 5522812681064789136, guid: 141bceac122bd314aba12efff2e63a8b, type: 3}
+--- !u!114 &2700393039108094870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116118446003420813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd201249b776d3429c294195813d8db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 5522812681064789136, guid: 141bceac122bd314aba12efff2e63a8b, type: 3}
@@ -423,16 +451,24 @@ MonoBehaviour:
   idleState: {fileID: 8492209417373373842}
   runState: {fileID: 5964110923969753158}
   attackState: {fileID: 1441242292170769697}
-  rewindState: {fileID: 2757135576655444758}
+  dashState: {fileID: 8304012402686302619}
   soulAttackState: {fileID: 5333005719380574726}
   soulIdleState: {fileID: 800357913357547679}
   soulRunState: {fileID: 4730870890379332162}
+  soulDashState: {fileID: 2700393039108094870}
   state: {fileID: 0}
   animator: {fileID: 3713123837856387261}
+  ableToAttack: 1
   isAttacking: 0
+  attackCooldown: 0.5
+  ableToDash: 1
+  isDashing: 0
+  dashCooldown: 2
   attackTriggered: 0
+  dashTriggered: 0
   switchBodyTriggered: 0
   currentBodyType: 0
+  maxSeperateDistance: 20
   onPlayerDamaged:
     m_PersistentCalls:
       m_Calls:
@@ -474,6 +510,8 @@ MonoBehaviour:
         m_CallState: 2
   puppetLifeCount: 3
   moveSpeed: 5
+  dashDistance: 3
+  dashDuration: 0.2
   attackcooldown: 0.05
   facingRotation: 0
   inputDeadZone: 0.05
@@ -482,7 +520,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6648455315225624442, guid: 67f6e6771d23ce64d88b50293c118ea8, type: 3}
   puppetPrefab: {fileID: 7168372492256287208, guid: b33b982dce5b9e94095e1becf5385b9e, type: 3}
   currentProjectile: {fileID: 0}
+  rb: {fileID: 0}
   movement: {x: 0, y: 0}
+  lastMovement: {x: 0, y: 0}
   sprite: {fileID: 4667395477510402932}
 --- !u!1 &8884936588648932725
 GameObject:

@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.U2D;
 
-public class AttackState : State
+public class AttackState : PlayerState
 {
     public AnimationClip anim;
 
@@ -27,6 +27,7 @@ public class AttackState : State
     {
         if (movementInput.isAttacking) return;
         movementInput.isAttacking = true;
+        movementInput.ableToAttack = false;
         movementInput.characterHitbox.EnableHitbox(true);
         StartCoroutine(AttackCooldown());
     }
@@ -36,6 +37,13 @@ public class AttackState : State
         yield return new WaitForSeconds(0.1f);
         movementInput.isAttacking = false;
         movementInput.characterHitbox.EnableHitbox(false);
+
+        Invoke(nameof(EnableAttack), movementInput.attackCooldown);
+    }
+
+    private void EnableAttack()
+    {
+        movementInput.ableToAttack = true;
     }
 
     public void Shoot()

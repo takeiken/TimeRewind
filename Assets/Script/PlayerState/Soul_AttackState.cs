@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Soul_AttackState : State
+public class Soul_AttackState : PlayerState
 {
     public AnimationClip anim;
     public override void Enter()
@@ -33,6 +33,13 @@ public class Soul_AttackState : State
         yield return new WaitForSeconds(0.1f);
         movementInput.isAttacking = false;
         movementInput.characterHitbox.EnableHitbox(false);
+
+        Invoke(nameof(EnableSoulAttack), movementInput.attackCooldown);
+    }
+
+    private void EnableSoulAttack()
+    {
+        movementInput.ableToAttack = true;
     }
 
     public override void Exit()
