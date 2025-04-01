@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy_FollowState : EnemyState
@@ -11,7 +12,19 @@ public class Enemy_FollowState : EnemyState
 
     public override void Do()
     {
+        if (CharacterMovement.Instance.puppetLifeCount <= 0)
+        {
+            enemyInput.seenPlayer = false;
+        }
 
+        if(Vector2.Distance(CharacterMovement.Instance.gameObject.transform.position,enemyInput.transform.position) <= enemyInput.attackRange) 
+        {
+            enemyInput.playerInRange = true;
+        }
+        else
+        {
+            enemyInput.playerInRange = false;
+        }
         isCompleted = true;
     }
 

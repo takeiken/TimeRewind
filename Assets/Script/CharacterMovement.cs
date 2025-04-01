@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.SceneManagement;
 using static UnityEngine.Rendering.DebugUI;
 
 public class CharacterMovement : MonoBehaviour
@@ -239,6 +240,12 @@ public class CharacterMovement : MonoBehaviour
         {
             puppetLifeCount--;
         }*/
+
+        if (puppetLifeCount <= 0)
+        {
+            //For testing only
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     public void StartRewindActions()

@@ -1,8 +1,10 @@
+using NUnit.Framework.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -12,10 +14,12 @@ public class EnemyMovement : MonoBehaviour
     public Enemy_IdleState idleState;
     public Enemy_FollowState followState;
     public Enemy_AttackState attackState;
+    public Enemy_DeadState deadState;
     [SerializeField]
     EnemyState state;
 
     [Header("Parameters")]
+    public int healthPoint = 3;
     public float radius;
     [Range(0, 360)]
     public float angle;
@@ -34,12 +38,15 @@ public class EnemyMovement : MonoBehaviour
     public GameObject enemyProjectile;
     [HideInInspector]
     public Rigidbody2D rb;
+    public NavMeshAgent agent;
 
     public LayerMask targetMask;
     public LayerMask obstructionMask;
 
-    public bool triggeredByPlayer;
+    public bool seenPlayer;
     public bool canSeePlayer;
+    public bool playerInRange;
+    public bool isAttacking;
 
     private void OnValidate()
     {
@@ -59,6 +66,7 @@ public class EnemyMovement : MonoBehaviour
     {
         if(enemySO!= null)
         {
+            //healthPoint = enemySO.Enemy.Health; //add this in the future
             radius = enemySO.Enemy.ReactLength;
             angle = enemySO.Enemy.ReactAngle;
             speed = enemySO.Enemy.MovementSpeed;
@@ -71,8 +79,11 @@ public class EnemyMovement : MonoBehaviour
         if (followState != null) followState.Setup(rb, this);
         if (attackState != null) attackState.Setup(rb, this);
         state = idleState;
-        playerRef = GameObject.FindGameObjectWithTag("Player");
+        playerRef = CharacterMovement.Instance.gameObject;
         rb = GetComponent<Rigidbody2D>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
         StartCoroutine(FOVRoutine());
         InitializeHitboxes();
     }
@@ -89,12 +100,44 @@ public class EnemyMovement : MonoBehaviour
         state.Do();
     }
 
+    private void FixedUpdate()
+    {
+        if (state == null) return;
+        if (!state.Equals(followState)) //only move in FollowState
+        {
+            agent.isStopped = true;
+        }
+        else
+        {
+            agent.isStopped = false;
+            agent.SetDestination(playerRef.transform.position);
+        }
+
+        //Vector2 dir = (playerRef.transform.position - gameObject.transform.position).normalized;
+        //rb.MovePosition(rb.position + dir * speed * Time.fixedDeltaTime);
+    }
+
     void SelectState()
     {
-        if (triggeredByPlayer)
+        if (healthPoint <= 0)
+        {
+            state = deadState;
+        }
+        else if ((playerInRange && canSeePlayer) || isAttacking)
+        {
+            state = attackState;
+        }
+        else if (seenPlayer)
         {
             state = followState;
         }
+        else
+        {
+            state = idleState;
+        }
+
+        state.Initialize();
+        state.Enter();
     }
 
     private IEnumerator FOVRoutine()
@@ -133,10 +176,15 @@ public class EnemyMovement : MonoBehaviour
             canSeePlayer = false;
     }
 
+    public virtual void TriggerAttack()
+    {
+        //TriggerAttack in Child class
+    }
+
     private void FacePlayer()
     {
         canSeePlayer = true;
-        triggeredByPlayer = true;
+        seenPlayer = true;
         // Calculate direction to the player
         Vector2 direction = ((Vector2)CharacterMovement.Instance.transform.position - rb.position).normalized;
 

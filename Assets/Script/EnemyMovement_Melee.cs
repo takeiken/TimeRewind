@@ -15,12 +15,15 @@ public class EnemyMovement_Melee : EnemyMovement
         }
     }
 
-    private void FixedUpdate()
+    public override void TriggerAttack()
     {
-        if (canAttack && canSeePlayer)
+        base.TriggerAttack();
+        StartCoroutine(MeleeAttackRoutine());
+
+        /*if (canAttack && canSeePlayer)
         {
             StartCoroutine(MeleeAttackRoutine());
-        }
+        }*/
     }
 
     private IEnumerator MeleeAttackRoutine()

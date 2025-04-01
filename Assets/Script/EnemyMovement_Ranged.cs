@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class EnemyMovement_Ranged : EnemyMovement
 {
-    private void FixedUpdate()
+    public override void TriggerAttack()
     {
-        if (canAttack && canSeePlayer)
+        base.TriggerAttack();
+        StartCoroutine(ShootingRoutine());
+
+        /*if (canAttack && canSeePlayer)
         {
             StartCoroutine(ShootingRoutine());
-        }
+        }*/
     }
 
     private IEnumerator ShootingRoutine()
